@@ -1,6 +1,10 @@
 
 public class NonTerminal implements CompoundExpression {
 
+	public NonTerminal() {
+		
+	}
+	
 	@Override
 	public CompoundExpression getParent() {
 		// TODO Auto-generated method stub
