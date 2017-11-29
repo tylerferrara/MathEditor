@@ -1,20 +1,18 @@
+import java.util.ArrayList;
 
 public class NonTerminal implements CompoundExpression {
-
-	public NonTerminal() {
-		
-	}
+	
+	private CompoundExpression parent;
+	private ArrayList<Expression> children;
 	
 	@Override
 	public CompoundExpression getParent() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.parent;
 	}
 
 	@Override
 	public void setParent(CompoundExpression parent) {
-		// TODO Auto-generated method stub
-		
+		this.parent = parent;
 	}
 
 	@Override
@@ -37,8 +35,7 @@ public class NonTerminal implements CompoundExpression {
 
 	@Override
 	public void addSubexpression(Expression subexpression) {
-		// TODO Auto-generated method stub
-		
+		this.children.add(subexpression);
 	}
 
 }

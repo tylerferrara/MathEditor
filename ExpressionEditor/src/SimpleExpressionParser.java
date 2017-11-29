@@ -1,3 +1,7 @@
+import java.awt.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Starter code to implement an ExpressionParser. Your parser methods should use the following grammar:
  * E := A | X
@@ -29,9 +33,28 @@ public class SimpleExpressionParser implements ExpressionParser {
 	}
 	
 	protected Expression parseExpression (String str) {
-		Expression expression;
 		
-		// TODO implement me
+		String alphabet = "qwertyuiopasdfghjklzxcvbnm";
+		ArrayList<Character> alphabetList = new ArrayList<Character>();
+		for(char c: alphabet.toCharArray()) {
+			alphabetList.add(c);
+		}
+
+		
+		if(str.indexOf('+') > -1) {
+			
+		} else if(str.indexOf('*') > -1) {
+			
+		} else if(str.indexOf('(') > -1) {
+		
+		} else if(alphabetList.contains(str.charAt(0))) {
+			
+		} else {
+			//its a number
+		}
+		
+		
 		return null;
 	}
+	
 }
