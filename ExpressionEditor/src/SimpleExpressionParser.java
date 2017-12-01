@@ -51,10 +51,16 @@ public class SimpleExpressionParser implements ExpressionParser {
 			Add plus = new Add();
 			// addSubexpression(left side of plus 'using recursion');
 			String left = str.substring(0, str.indexOf('+'));
+			System.out.println(left);
 			plus.addSubexpression(parseExpression(left));
 			// do the same for right side of recursion
-			String right = str.substring(str.indexOf('+'));
+			String right = str.substring(str.indexOf('+')+1);
+			System.out.println(right);
 			plus.addSubexpression(parseExpression(right));
+			// set current node as parent for subexpressions
+			for(Expression e: plus.getSubexpression()) {
+				e.setParent(plus);
+			}
 			return plus;
 		} else if(str.indexOf('*') > -1) { // M
 			// create node
@@ -62,14 +68,25 @@ public class SimpleExpressionParser implements ExpressionParser {
 			// addSubexpression(left side of plus 'using recursion');
 			String left = str.substring(0, str.indexOf('*'));
 			times.addSubexpression(parseExpression(left));
+			System.out.println(left);
 			// do the same for right side of recursion
-			String right = str.substring(str.indexOf('*'));
+			String right = str.substring(str.indexOf('*')+1);
+			System.out.println(right);
 			times.addSubexpression(parseExpression(right));
+			// set current node as parent for subexpressions
+			for(Expression e: times.getSubexpression()) {
+				e.setParent(times);
+			}
 			return times;
 		} else if(str.indexOf('(') > -1) { // X
 			String inside = str.substring(str.indexOf('(')+1,str.indexOf(')'));
+			System.out.println(inside);
 			Parentheses paren = new Parentheses();
 			paren.addSubexpression(parseExpression(inside));
+			// set current node as parent for subexpressions
+			for(Expression e: paren.getSubexpression()) {
+				e.setParent(paren);
+			}
 			return paren;
 		} else { // L
 			Terminal terminal = new Terminal();

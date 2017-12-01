@@ -5,6 +5,10 @@ public class NonTerminal implements CompoundExpression {
 	private CompoundExpression parent;
 	private ArrayList<Expression> children;
 	
+	public NonTerminal() {
+		this.children = new ArrayList<Expression>();
+	}
+	
 	@Override
 	public CompoundExpression getParent() {
 		return this.parent;
@@ -36,6 +40,10 @@ public class NonTerminal implements CompoundExpression {
 	@Override
 	public void addSubexpression(Expression subexpression) {
 		this.children.add(subexpression);
+	}
+	
+	public ArrayList<Expression> getSubexpression() {
+		return this.children;
 	}
 
 }

@@ -6,6 +6,8 @@ public class DumbTesting {
 		String str = "3*x+2*x";
 		SimpleExpressionParser parser = new SimpleExpressionParser();
 		Expression head = parser.parse(str, false);
+		
+		
 	}
 
 }
