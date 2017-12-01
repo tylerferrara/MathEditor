@@ -5,6 +5,9 @@ public class Terminal implements Expression {
 	private int value;
 	private String name;
 	
+	public Terminal() {
+	}
+	
 	public Terminal(int value) {
 		this.value = value;
 	}
