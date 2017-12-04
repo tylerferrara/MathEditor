@@ -1,5 +1,6 @@
 /Add.class
 /CompoundExpression.class
+/DumbTesting.class
 /Expression.class
 /ExpressionParseException.class
 /ExpressionParser.class
@@ -9,4 +10,3 @@
 /Parentheses.class
 /SimpleExpressionParser.class
 /Terminal.class
-/DumbTesting.class
