@@ -21,12 +21,12 @@ public class NonTerminal implements CompoundExpression {
 
 	@Override
 	public Expression deepCopy() {
-		// TODO Auto-generated method stub
-		//
-		//
-		//  NEED TO IMPLIMENT THIS CRAP
-		//
-		return null;
+		final NonTerminal copy = new NonTerminal();
+		for (Expression child : children) {
+			copy.children.add((Expression) child.deepCopy());
+			child.setParent(this);
+		}
+		return copy;
 	}
 
 	@Override
