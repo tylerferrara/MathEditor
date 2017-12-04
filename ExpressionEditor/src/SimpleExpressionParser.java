@@ -46,15 +46,16 @@ public class SimpleExpressionParser implements ExpressionParser {
  * L := [0-9]+ | [a-z]
  */
 		
-		if(str.indexOf('+') > -1) { // A
+		if(findOuterMostChar(str, '+') > -1) { // A
+			int plusIndex = findOuterMostChar(str, '+');
 			// create node
 			Add plus = new Add();
 			// addSubexpression(left side of plus 'using recursion');
-			String left = str.substring(0, str.indexOf('+'));
+			String left = str.substring(0, plusIndex);
 			System.out.println(left);
 			plus.addSubexpression(parseExpression(left));
 			// do the same for right side of recursion
-			String right = str.substring(str.indexOf('+')+1);
+			String right = str.substring(plusIndex+1);
 			System.out.println(right);
 			plus.addSubexpression(parseExpression(right));
 			// set current node as parent for subexpressions
@@ -62,15 +63,16 @@ public class SimpleExpressionParser implements ExpressionParser {
 				e.setParent(plus);
 			}
 			return plus;
-		} else if(str.indexOf('*') > -1) { // M
+		} else if(findOuterMostChar(str, '*') > -1) { // M
+			int timesIndex = findOuterMostChar(str, '*');
 			// create node
 			Multiply times = new Multiply();
 			// addSubexpression(left side of plus 'using recursion');
-			String left = str.substring(0, str.indexOf('*'));
+			String left = str.substring(0, timesIndex);
 			times.addSubexpression(parseExpression(left));
 			System.out.println(left);
 			// do the same for right side of recursion
-			String right = str.substring(str.indexOf('*')+1);
+			String right = str.substring(timesIndex+1);
 			System.out.println(right);
 			times.addSubexpression(parseExpression(right));
 			// set current node as parent for subexpressions
@@ -78,8 +80,9 @@ public class SimpleExpressionParser implements ExpressionParser {
 				e.setParent(times);
 			}
 			return times;
-		} else if(str.indexOf('(') > -1) { // X
-			String inside = str.substring(str.indexOf('(')+1,str.indexOf(')'));
+		}  else if(str.indexOf('(') > -1) { // X
+			String inside = str.substring(1,str.length()-1);
+			System.out.println("inside!!!");
 			System.out.println(inside);
 			Parentheses paren = new Parentheses();
 			paren.addSubexpression(parseExpression(inside));
@@ -94,4 +97,26 @@ public class SimpleExpressionParser implements ExpressionParser {
 		}
 	}
 	
+	/**
+	 * Will return the index of the last character inside the given string
+	 * as long as that character is not inside a set of parentheses.
+	 * @param str
+	 * @param c
+	 * @return
+	 */
+	private int findOuterMostChar(String str, char c) {
+		int index = -1;
+		int numOfOpenParens = 0;
+		for(int i = 0; i < str.length(); i++) {
+			char testChar = str.charAt(i);
+			if(testChar == '(') {
+				numOfOpenParens++;
+			} else if (testChar == ')') {
+				numOfOpenParens--;
+			} else if (testChar == c && numOfOpenParens == 0) {
+				index = i;
+			}
+		}
+		return index;
+	}
 }

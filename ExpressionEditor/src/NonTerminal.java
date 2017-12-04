@@ -22,12 +22,31 @@ public class NonTerminal implements CompoundExpression {
 	@Override
 	public Expression deepCopy() {
 		// TODO Auto-generated method stub
+		//
+		//
+		//  NEED TO IMPLIMENT THIS CRAP
+		//
 		return null;
 	}
 
 	@Override
 	public void flatten() {
-		// TODO Auto-generated method stub
+		
+		for(int i = 0; i < this.children.size(); i++) {
+//			if(/* this object is the same type as its child*/) {
+//				
+//					set child's children to have this object as the parent
+//					add child's children to this.children
+//					remove child from this.children
+//				
+//			
+//				if( child is not of type Terminal ) {
+//					this.children.get(i).flatten();
+//				}
+//			}
+			
+
+		}
 		
 	}
 
