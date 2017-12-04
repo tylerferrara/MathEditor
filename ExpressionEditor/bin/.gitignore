@@ -1,12 +1,1 @@
-/Add.class
-/CompoundExpression.class
-/Expression.class
-/ExpressionParseException.class
-/ExpressionParser.class
-/ExpressionParserPartialTester.class
-/Multiply.class
-/NonTerminal.class
-/Parentheses.class
-/SimpleExpressionParser.class
-/Terminal.class
 /DumbTesting.class
