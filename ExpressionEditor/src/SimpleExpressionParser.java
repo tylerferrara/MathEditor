@@ -89,7 +89,7 @@ public class SimpleExpressionParser implements ExpressionParser {
 			}
 			return paren;
 		} else { // L
-			Terminal terminal = new Terminal();
+			Terminal terminal = new Terminal(str);
 			return terminal;
 		}
 	}

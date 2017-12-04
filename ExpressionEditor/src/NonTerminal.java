@@ -33,8 +33,16 @@ public class NonTerminal implements CompoundExpression {
 
 	@Override
 	public String convertToString(int indentLevel) {
-		// TODO Auto-generated method stub
-		return null;
+		String str = "";
+		for(int i = 0; i < indentLevel; i++) {
+			str += "\t";
+		}
+		str += this.toString();
+		for(int i = 0; i < this.children.size(); i++) {
+			str += "\n";
+			str += this.children.get(i).convertToString(indentLevel+1);
+		}
+		return str;
 	}
 
 	@Override

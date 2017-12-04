@@ -7,6 +7,8 @@ public class DumbTesting {
 		SimpleExpressionParser parser = new SimpleExpressionParser();
 		Expression head = parser.parse(str, false);
 		
+		System.out.println(head.convertToString(0));
+	
 		
 	}
 

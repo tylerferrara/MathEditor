@@ -2,20 +2,15 @@
 public class Terminal implements Expression {
 
 	private CompoundExpression parent;
-	private int value;
-	private String name;
+	private String value;
 	
 	public Terminal() {
 	}
 	
-	public Terminal(int value) {
+	public Terminal(String value) {
 		this.value = value;
 	}
 	
-	public Terminal(String name) {
-		this.name = name;
-	}
-
 	@Override
 	public CompoundExpression getParent() {
 		return this.parent;
@@ -40,8 +35,12 @@ public class Terminal implements Expression {
 
 	@Override
 	public String convertToString(int indentLevel) {
-		// TODO Auto-generated method stub
-		return null;
+		String str = "";
+		for(int i = 0; i < indentLevel; i++) {
+			str += "\t";
+		}
+		str += this.value;
+		return str;
 	}
 
 }
