@@ -1,12 +1,13 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class NonTerminal implements CompoundExpression {
 	
 	private CompoundExpression parent;
-	private ArrayList<Expression> children;
+	private LinkedList<Expression> children;
 	
 	public NonTerminal() {
-		this.children = new ArrayList<Expression>();
+		this.children = new LinkedList<Expression>();
 	}
 	
 	@Override
@@ -36,14 +37,14 @@ public class NonTerminal implements CompoundExpression {
 			if(this.toString().equals(child.toString()))
 			{
 				// set child's children to have this object as the parent
-				ArrayList<Expression> childChildren = ((NonTerminal) child).getSubexpression();
+				LinkedList<Expression> childChildren = ((NonTerminal) child).getSubexpression();
 				for(int k = 0; k < childChildren.size(); k++) {
 					childChildren.get(k).setParent(this);
 					// add child's children to this.children
 					addSubexpression(childChildren.get(k));
 				}
 			
-				ArrayList<Expression> children = this.children;
+				LinkedList<Expression> children = this.children;
 				children.remove(i);
 				setSubExpression(children);
 				// remove child from this.children
@@ -83,7 +84,7 @@ public class NonTerminal implements CompoundExpression {
 			str += "\n";
 			str += this.children.get(i).convertToString(indentLevel+1);
 		}
-		return str;
+		return str+"\n";
 	}
 
 	@Override
@@ -91,11 +92,11 @@ public class NonTerminal implements CompoundExpression {
 		this.children.add(subexpression);
 	}
 	
-	public void setSubExpression(ArrayList<Expression> subexpressionList) {
-		this.children = subexpressionList;
+	public void setSubExpression(LinkedList<Expression> subExpressionList) {
+		this.children = subExpressionList;
 	}
 	
-	public ArrayList<Expression> getSubexpression() {
+	public LinkedList<Expression> getSubexpression() {
 		return this.children;
 	}
 
