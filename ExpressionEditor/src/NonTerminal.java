@@ -31,13 +31,22 @@ public class NonTerminal implements CompoundExpression {
 
 	@Override
 	public void flatten() {
-		
 		for(int i = 0; i < this.children.size(); i++) {
-			String parent = this.toString();
-			String child = this.children.get(i).toString();
-			if(parent.equals(child))
+			Expression child = this.children.get(i);
+			if(this.toString().equals(child.toString()))
 			{
-				setSubExpression(this.children.get(i));
+				// set child's children to have this object as the parent
+				ArrayList<Expression> childChildren = ((NonTerminal) child).getSubexpression();
+				for(int k = 0; k < childChildren.size(); k++) {
+					childChildren.get(k).setParent(this);
+					// add child's children to this.children
+					addSubexpression(childChildren.get(k));
+				}
+			
+				ArrayList<Expression> children = this.children;
+				children.remove(i);
+				setSubExpression(children);
+				// remove child from this.children
 				
 			}
 			
@@ -81,12 +90,9 @@ public class NonTerminal implements CompoundExpression {
 	public void addSubexpression(Expression subexpression) {
 		this.children.add(subexpression);
 	}
-	public void setSubExpression(Expression subexpression)
-	{
-		for(int i =0; i< this.children.size();i++)
-		{
-			this.children.set(i, subexpression);
-		}
+	
+	public void setSubExpression(ArrayList<Expression> subexpressionList) {
+		this.children = subexpressionList;
 	}
 	
 	public ArrayList<Expression> getSubexpression() {

@@ -52,11 +52,9 @@ public class SimpleExpressionParser implements ExpressionParser {
 			Add plus = new Add();
 			// addSubexpression(left side of plus 'using recursion');
 			String left = str.substring(0, plusIndex);
-			System.out.println(left);
 			plus.addSubexpression(parseExpression(left));
 			// do the same for right side of recursion
 			String right = str.substring(plusIndex+1);
-			System.out.println(right);
 			plus.addSubexpression(parseExpression(right));
 			// set current node as parent for subexpressions
 			for(Expression e: plus.getSubexpression()) {
@@ -70,10 +68,8 @@ public class SimpleExpressionParser implements ExpressionParser {
 			// addSubexpression(left side of plus 'using recursion');
 			String left = str.substring(0, timesIndex);
 			times.addSubexpression(parseExpression(left));
-			System.out.println(left);
 			// do the same for right side of recursion
 			String right = str.substring(timesIndex+1);
-			System.out.println(right);
 			times.addSubexpression(parseExpression(right));
 			// set current node as parent for subexpressions
 			for(Expression e: times.getSubexpression()) {
@@ -82,8 +78,6 @@ public class SimpleExpressionParser implements ExpressionParser {
 			return times;
 		}  else if(str.indexOf('(') > -1) { // X
 			String inside = str.substring(1,str.length()-1);
-			System.out.println("inside!!!");
-			System.out.println(inside);
 			Parentheses paren = new Parentheses();
 			paren.addSubexpression(parseExpression(inside));
 			// set current node as parent for subexpressions
