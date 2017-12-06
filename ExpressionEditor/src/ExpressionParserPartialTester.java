@@ -43,7 +43,7 @@ public class ExpressionParserPartialTester {
 	 */
 	public void testExpression2 () throws ExpressionParseException {
 		final String expressionStr = "13*x";
-		final String parseTreeStr = "·\n\t13\n\tx\n";
+		final String parseTreeStr = "*\n\t13\n\tx\n";
 		assertEquals(parseTreeStr, _parser.parse(expressionStr, false).convertToString(0));
 	}
 
@@ -53,7 +53,7 @@ public class ExpressionParserPartialTester {
 	 */
 	public void testExpression3 () throws ExpressionParseException {
 		final String expressionStr = "4*(z+5*x)";
-		final String parseTreeStr = "·\n\t4\n\t()\n\t\t+\n\t\t\tz\n\t\t\t·\n\t\t\t\t5\n\t\t\t\tx\n";
+		final String parseTreeStr = "*\n\t4\n\t()\n\t\t+\n\t\t\tz\n\t\t\t*\n\t\t\t\t5\n\t\t\t\tx\n";
 		assertEquals(parseTreeStr, _parser.parse(expressionStr, false).convertToString(0));
 	}
 
