@@ -11,7 +11,7 @@ public class SimpleExpressionParser implements ExpressionParser {
 	 * @return the Expression object representing the parsed expression tree
 	 */
 	public Expression parse (String str, boolean withJavaFXControls) throws ExpressionParseException {
-		// Remove spaces -- this simplifies the parsing logic
+		// Remove spaces -- this simplifies the parsing logic 
 		str = str.replaceAll(" ", "");
 		Expression expression = parseExpression(str);
 		if (expression == null) {
@@ -23,8 +23,23 @@ public class SimpleExpressionParser implements ExpressionParser {
 		expression.flatten();
 		return expression;
 	}
-	
+	/**
+	 * Attempts to parse a str, dividing it up into smaller components through recursion
+	 * @param str Expression to parse
+	 * @return Returns the expression parsed from str
+	 */
 	protected Expression parseExpression (String str) {
+		
+		//           This code needs to be somewhere else, 
+		////             NOT in recursive function
+		String alphabet = "qwertyuiopasdfghjklzxcvbnm";
+		ArrayList<Character> alphabetList = new ArrayList<Character>();
+		for(char c: alphabet.toCharArray()) {
+			alphabetList.add(c);
+		}
+		////
+		//
+
 
 /**
  * Starter code to implement an ExpressionParser. Your parser methods should use the following grammar:
@@ -34,7 +49,8 @@ public class SimpleExpressionParser implements ExpressionParser {
  * X := (E) | L
  * L := [0-9]+ | [a-z]
  */
-		
+		//Check the grammar and create respective nodes through recursive parsing
+		//Check for '+'
 		if(findOuterMostChar(str, '+') > -1) { // A
 			int plusIndex = findOuterMostChar(str, '+');
 			// create node
@@ -50,7 +66,9 @@ public class SimpleExpressionParser implements ExpressionParser {
 				e.setParent(plus);
 			}
 			return plus;
-		} else if(findOuterMostChar(str, '*') > -1) { // M
+		} 
+		//Check for '*'
+		else if(findOuterMostChar(str, '*') > -1) { // M
 			int timesIndex = findOuterMostChar(str, '*');
 			// create node
 			Multiply times = new Multiply();
@@ -65,7 +83,9 @@ public class SimpleExpressionParser implements ExpressionParser {
 				e.setParent(times);
 			}
 			return times;
-		}  else if(str.indexOf('(') > -1) { // X
+		}  
+		//Check for '('
+		else if(str.indexOf('(') > -1) { // X
 			String inside = str.substring(1,str.length()-1);
 			Parentheses paren = new Parentheses();
 			paren.addSubexpression(parseExpression(inside));
@@ -74,7 +94,9 @@ public class SimpleExpressionParser implements ExpressionParser {
 				e.setParent(paren);
 			}
 			return paren;
-		} else { // L
+		}
+		//Else we know it is a terminal node
+		else { // L
 			Terminal terminal = new Terminal(str);
 			return terminal;
 		}
@@ -83,13 +105,12 @@ public class SimpleExpressionParser implements ExpressionParser {
 	/**
 	 * Will return the index of the last character inside the given string
 	 * as long as that character is not inside a set of parentheses.
-	 * @param str
-	 * @param c
-	 * @return
+	 * @param str String to parse
+	 * @param c char to get index of 
+	 * @return return index of outer-most char
 	 */
 	private int findOuterMostChar(String str, char c) {
 		int index = -1;
-		ArrayList<Integer> indexes = new ArrayList<Integer>();
 		int numOfOpenParens = 0;
 		for(int i = 0; i < str.length(); i++) {
 			char testChar = str.charAt(i);
@@ -98,23 +119,9 @@ public class SimpleExpressionParser implements ExpressionParser {
 			} else if (testChar == ')') {
 				numOfOpenParens--;
 			} else if (testChar == c && numOfOpenParens == 0) {
-				indexes.add(i);
+				index = i;
 			}
 		}
-		if(indexes.size() > 0) {
-			return findMedium(indexes);
-		} else {
-			return -1;
-		}
-	}
-	
-	private int findMedium(ArrayList<Integer> lst) {
-		int index = 0;
-		if((lst.size()/2.0) % 2 == 0) {
-			index = ((lst.size()/2)-1);
-		} else {
-			index = (lst.size()/2);
-		}
-		return lst.get(index);
+		return index;
 	}
 }
