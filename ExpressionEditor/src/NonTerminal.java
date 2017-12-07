@@ -24,8 +24,8 @@ public class NonTerminal implements CompoundExpression {
 	}
 
 	/**
-	 * @param CompoundExpression
-	 * sets the parent of the NonTerminal to the given CompoundExpression
+	 * @param parent is CompoundExpression
+	 * sets the parent of the NonTerminal to parent
 	 */
 	@Override
 	public void setParent(CompoundExpression parent) {
@@ -86,10 +86,10 @@ public class NonTerminal implements CompoundExpression {
 	}
 
 	/**
-	 * @param int
+	 * @param indentLevel number to be passed to recursiveConvertToString
 	 * @return String
 	 * returns the result of recursiveConvertToString
-	 * called with the given int with a new line at the end
+	 * called with the given indentLevel with a new line at the end
 	 */
 	@Override
 	public String convertToString(int indentLevel) {
@@ -97,11 +97,11 @@ public class NonTerminal implements CompoundExpression {
 	}
 	
 	/**
-	 * @param indentLevel
+	 * @param indentLevel number of tabs to be added
 	 * @return String
-	 * indents the given int number of tabs then adds the
+	 * indents the given indentLevel number of tabs then adds the
 	 * toString value of the NonTerminal and then calls
-	 * itself on the children with the original int + 1
+	 * itself on the children with the original indentLevel + 1
 	 */
 	@Override
 	public String recursiveConvertToString(int indentLevel) {
