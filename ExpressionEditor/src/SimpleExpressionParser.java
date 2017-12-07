@@ -25,17 +25,6 @@ public class SimpleExpressionParser implements ExpressionParser {
 	}
 	
 	protected Expression parseExpression (String str) {
-		
-		//           This code needs to be somewhere else, 
-		////             NOT in recursive function
-		String alphabet = "qwertyuiopasdfghjklzxcvbnm";
-		ArrayList<Character> alphabetList = new ArrayList<Character>();
-		for(char c: alphabet.toCharArray()) {
-			alphabetList.add(c);
-		}
-		////
-		//
-
 
 /**
  * Starter code to implement an ExpressionParser. Your parser methods should use the following grammar:
@@ -100,6 +89,7 @@ public class SimpleExpressionParser implements ExpressionParser {
 	 */
 	private int findOuterMostChar(String str, char c) {
 		int index = -1;
+		ArrayList<Integer> indexes = new ArrayList<Integer>();
 		int numOfOpenParens = 0;
 		for(int i = 0; i < str.length(); i++) {
 			char testChar = str.charAt(i);
@@ -108,9 +98,23 @@ public class SimpleExpressionParser implements ExpressionParser {
 			} else if (testChar == ')') {
 				numOfOpenParens--;
 			} else if (testChar == c && numOfOpenParens == 0) {
-				index = i;
+				indexes.add(i);
 			}
 		}
-		return index;
+		if(indexes.size() > 0) {
+			return findMedium(indexes);
+		} else {
+			return -1;
+		}
+	}
+	
+	private int findMedium(ArrayList<Integer> lst) {
+		int index = 0;
+		if((lst.size()/2.0) % 2 == 0) {
+			index = ((lst.size()/2)-1);
+		} else {
+			index = (lst.size()/2);
+		}
+		return lst.get(index);
 	}
 }

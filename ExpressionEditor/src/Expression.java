@@ -35,7 +35,7 @@ interface Expression {
 	 * @return a String representation of the expression tree.
 	 */	
 	String convertToString (int indentLevel);
-
+	String recursiveConvertToString(int indentLevel);
 	/**
 	 * Static helper method to indent a specified number of times from the left margin, by
 	 * appending tab characters to teh specified StringBuffer.

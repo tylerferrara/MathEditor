@@ -35,6 +35,11 @@ public class Terminal implements Expression {
 
 	@Override
 	public String convertToString(int indentLevel) {
+		return recursiveConvertToString(indentLevel);
+	}
+	
+	@Override
+	public String recursiveConvertToString(int indentLevel) {
 		String str = "";
 		for(int i = 0; i < indentLevel; i++) {
 			str += "\t";

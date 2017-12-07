@@ -22,10 +22,18 @@ public class NonTerminal implements CompoundExpression {
 
 	@Override
 	public Expression deepCopy() {
-		final NonTerminal copy = new NonTerminal();
-		for (Expression child : children) {
-			copy.children.add((Expression) child.deepCopy());
-			child.setParent(this);
+		NonTerminal copy;
+		if(this.toString().equals("+")) {
+			copy = new Add();
+		} else if(this.toString().equals("*")) {
+			copy = new Multiply();
+		} else {
+			copy = new Parentheses();
+		}
+		
+		for(int i = 0; i < this.children.size(); i++) {
+			copy.addSubexpression((Expression) this.children.get(i).deepCopy());
+			copy.getSubexpression().get(i).setParent(copy);
 		}
 		return copy;
 	}
@@ -34,18 +42,18 @@ public class NonTerminal implements CompoundExpression {
 	public void flatten() {
 		for(int i = 0; i < this.children.size(); i++) {
 			Expression child = this.children.get(i);
-			if(this.toString().equals(child.toString()))
-			{
+			if(this.toString().equals(child.toString())) {
+				// TIME TO OPTIMIZE
 				// set child's children to have this object as the parent
 				LinkedList<Expression> childChildren = ((NonTerminal) child).getSubexpression();
-				for(int k = 0; k < childChildren.size(); k++) {
+				for(int k = childChildren.size()-1; k >= 0; k--) {
 					childChildren.get(k).setParent(this);
 					// add child's children to this.children
-					addSubexpression(childChildren.get(k));
+					children.add(i, childChildren.get(k));
 				}
 			
-				LinkedList<Expression> children = this.children;
-				children.remove(i);
+				LinkedList<Expression> children = this.children;		
+				children.remove(i+childChildren.size());
 				setSubExpression(children);
 				// remove child from this.children
 				
@@ -75,6 +83,11 @@ public class NonTerminal implements CompoundExpression {
 
 	@Override
 	public String convertToString(int indentLevel) {
+		return recursiveConvertToString(indentLevel)+"\n";
+	}
+	
+	@Override
+	public String recursiveConvertToString(int indentLevel) {
 		String str = "";
 		for(int i = 0; i < indentLevel; i++) {
 			str += "\t";
@@ -82,9 +95,10 @@ public class NonTerminal implements CompoundExpression {
 		str += this.toString();
 		for(int i = 0; i < this.children.size(); i++) {
 			str += "\n";
-			str += this.children.get(i).convertToString(indentLevel+1);
+			str += this.children.get(i).recursiveConvertToString(indentLevel+1);
 		}
-		return str+"\n";
+		return str;
+		
 	}
 
 	@Override

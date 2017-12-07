@@ -34,6 +34,8 @@ public class ExpressionParserPartialTester {
 	public void testExpression1 () throws ExpressionParseException {
 		final String expressionStr = "a+b";
 		final String parseTreeStr = "+\n\ta\n\tb\n";
+		System.out.println("test1");
+		System.out.println(parseTreeStr);
 		assertEquals(parseTreeStr, _parser.parse(expressionStr, false).convertToString(0));
 	}
 
@@ -59,7 +61,7 @@ public class ExpressionParserPartialTester {
 	public void testExpression4() throws ExpressionParseException{
 		final String expressionStr = "13*13*13+4";
 		final String parseTreeStr = "";
-		System.out.println(_parser.parse(expressionStr,false).convertToString(0));
+		//System.out.println(_parser.parse(expressionStr,false).convertToString(0));
 		assertEquals(parseTreeStr, _parser.parse(expressionStr,false).convertToString(0));
 	}
 	@Test
@@ -69,6 +71,7 @@ public class ExpressionParserPartialTester {
 	public void testExpression3 () throws ExpressionParseException {
 		final String expressionStr = "4*(z+5*x)";
 		final String parseTreeStr = "*\n\t4\n\t()\n\t\t+\n\t\t\tz\n\t\t\t*\n\t\t\t\t5\n\t\t\t\tx\n";
+		System.out.println(parseTreeStr);
 		assertEquals(parseTreeStr, _parser.parse(expressionStr, false).convertToString(0));
 	}
 
