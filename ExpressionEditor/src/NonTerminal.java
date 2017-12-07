@@ -6,20 +6,36 @@ public class NonTerminal implements CompoundExpression {
 	private CompoundExpression parent;
 	private LinkedList<Expression> children;
 	
+	/**
+	 * @return NonTerminal
+	 * public constructor for NonTerminal
+	 */
 	public NonTerminal() {
 		this.children = new LinkedList<Expression>();
 	}
 	
+	/**
+	 * @return CompoundExpression
+	 * returns the parent of the NonTerminal
+	 */
 	@Override
 	public CompoundExpression getParent() {
 		return this.parent;
 	}
 
+	/**
+	 * @param CompoundExpression
+	 * sets the parent of the NonTerminal to the given CompoundExpression
+	 */
 	@Override
 	public void setParent(CompoundExpression parent) {
 		this.parent = parent;
 	}
 
+	/**
+	 * @return Expression
+	 * creates a copy of the entire Expression with the NonTerminal at its root
+	 */
 	@Override
 	public Expression deepCopy() {
 		NonTerminal copy;
@@ -38,6 +54,12 @@ public class NonTerminal implements CompoundExpression {
 		return copy;
 	}
 
+	/**
+	 * if one of the children of the NonTerminal is the same type
+	 * it will make the child's children the children of the
+	 * NonTerminal and set the NonTerminal as their parent,
+	 * then removes the first child from the NonTerminal's children
+	 */
 	@Override
 	public void flatten() {
 		for(int i = 0; i < this.children.size(); i++) {
@@ -60,32 +82,27 @@ public class NonTerminal implements CompoundExpression {
 			}
 			
 		}
-			{
-				
-				
-				/* this object is the same type as its child*/ {
-			}
-//				
-//					set child's children to have this object as the parent
-//					add child's children to this.children
-//					remove child from this.children
-//				
-//			
-//				if( child is not of type Terminal ) {
-//					this.children.get(i).flatten();
-//				}
-//			}
-			
-
-		}
 		
 	}
 
+	/**
+	 * @param int
+	 * @return String
+	 * returns the result of recursiveConvertToString
+	 * called with the given int with a new line at the end
+	 */
 	@Override
 	public String convertToString(int indentLevel) {
 		return recursiveConvertToString(indentLevel)+"\n";
 	}
 	
+	/**
+	 * @param indentLevel
+	 * @return String
+	 * indents the given int number of tabs then adds the
+	 * toString value of the NonTerminal and then calls
+	 * itself on the children with the original int + 1
+	 */
 	@Override
 	public String recursiveConvertToString(int indentLevel) {
 		String str = "";
@@ -101,15 +118,26 @@ public class NonTerminal implements CompoundExpression {
 		
 	}
 
+	/**
+	 * @param subexpression
+	 * adds the given Expression to the NonTerminal's children
+	 */
 	@Override
 	public void addSubexpression(Expression subexpression) {
 		this.children.add(subexpression);
 	}
 	
+	/**
+	 * @param subExpressionList
+	 * sets the NonTerminal's children to subExpressionList
+	 */
 	public void setSubExpression(LinkedList<Expression> subExpressionList) {
 		this.children = subExpressionList;
 	}
 	
+	/**
+	 * @return the NonTerminal's children
+	 */
 	public LinkedList<Expression> getSubexpression() {
 		return this.children;
 	}
