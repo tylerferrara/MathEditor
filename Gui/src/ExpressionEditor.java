@@ -79,7 +79,6 @@ public class ExpressionEditor extends Application {
 					expressionPane.getChildren().add(expression.getNode());
 					expression.getNode().setLayoutX(WINDOW_WIDTH/4);
 					expression.getNode().setLayoutY(WINDOW_HEIGHT/2);
-
 					// If the parsed expression is a CompoundExpression, then register some callbacks
 					if (expression instanceof CompoundExpression) {
 						((Pane) expression.getNode()).setBorder(Expression.NO_BORDER);
@@ -89,6 +88,7 @@ public class ExpressionEditor extends Application {
 						expressionPane.setOnMouseReleased(eventHandler);
 					}
 				} catch (ExpressionParseException epe) {
+					System.out.println("hi");
 					// If we can't parse the expression, then mark it in red
 					textField.setStyle("-fx-text-fill: red");
 				}
