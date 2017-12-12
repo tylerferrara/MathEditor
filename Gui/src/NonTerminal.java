@@ -66,6 +66,7 @@ public class NonTerminal implements CompoundExpression {
 	public void flatten() {
 		for(int i = 0; i < this.children.size(); i++) {
 			Expression child = this.children.get(i);
+			child.flatten();
 			if(this.toString().equals(child.toString())) {
 				// TIME TO OPTIMIZE
 				// set child's children to have this object as the parent
