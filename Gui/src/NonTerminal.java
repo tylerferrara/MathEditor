@@ -7,6 +7,7 @@ public class NonTerminal implements CompoundExpression {
 	
 	private CompoundExpression parent;
 	private LinkedList<Expression> children;
+	private Label label;
 	
 	/**
 	 * @return NonTerminal
@@ -143,6 +144,9 @@ public class NonTerminal implements CompoundExpression {
 	 */
 	public LinkedList<Expression> getSubexpression() {
 		return this.children;
+	}
+	public Expression getMostSpecificFocus(double x, double y) {
+		if()
 	}
 
 	@Override

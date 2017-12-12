@@ -21,7 +21,7 @@ public class ExpressionEditor extends Application {
 	public static void main (String[] args) {
 		launch(args);
 	}
-
+	Expression root;
 	/**
 	 * Mouse event handler for the entire pane that constitutes the ExpressionEditor
 	 */
@@ -31,31 +31,44 @@ public class ExpressionEditor extends Application {
 		private Label _label;
 		double _lastX, _lastY;
 		MouseEventHandler(Label label){
-			_label=label;
+			_label=label;}
 			
-		}
-		
-		public void handle(MouseEvent event) {
-			final double sceneX = event.getSceneX();
-			final double sceneY = event.getSceneY();
-			
-			if(event.getEventType()==MouseEvent.MOUSE_PRESSED) {
+			public void handle(MouseEvent event) {
+				Expression selected = null;
+				final double sceneX = event.getSceneX();
+				final double sceneY = event.getSceneY();
 				
-			}
-			else if (event.getEventType()==MouseEvent.MOUSE_DRAGGED) {
-				_label.setTranslateX(_label.getTranslateX()+(sceneX-_lastX));
-				_label.setTranslateY(_label.getTranslateY()+(sceneY-_lastY));
-				
-			}
-			else if(event.getEventType()==MouseEvent.MOUSE_RELEASED) {
-				_label.setLayoutX(_label.getLayoutX() + _label.getTranslateX());
-				_label.setLayoutY(_label.getLayoutY() + _label.getTranslateY());
-			}
-			_lastX= sceneX;
-			_lastY= sceneY;
-		}
-	}
+				if(event.getEventType()==MouseEvent.MOUSE_PRESSED) {
+					if(selected==null)
+					{
+						selected=currentExpression.getMostSpecificFocus(event.getSceneX(),event.getSceneY())
+								.getMostSpecificFocus(event.getSceneX(),event.getSceneY());
+					}
+					else {
+						for(Expression child: selected.getChildren())
+						{
+							 Expression temp =child.getMostSpecificFocus(event.getSceneX(),event.getSceneY());
+							 if(temp!=null) {
+								 selected= temp;
+							 }
 
+						}
+						selected=null;
+					}
+				}
+				else if (event.getEventType()==MouseEvent.MOUSE_DRAGGED) {
+					_label.setTranslateX(_label.getTranslateX()+(sceneX-_lastX));
+					_label.setTranslateY(_label.getTranslateY()+(sceneY-_lastY));
+					
+				}
+				else if(event.getEventType()==MouseEvent.MOUSE_RELEASED) {
+					_label.setLayoutX(_label.getLayoutX() + _label.getTranslateX());
+					_label.setLayoutY(_label.getLayoutY() + _label.getTranslateY());
+				}
+				_lastX= sceneX;
+				_lastY= sceneY;
+			}
+		}
 	/**
 	 * Size of the GUI
 	 */
@@ -96,10 +109,9 @@ public class ExpressionEditor extends Application {
 					expression.getNode().setLayoutX(WINDOW_WIDTH/4);
 					expression.getNode().setLayoutY(WINDOW_HEIGHT/2);
 					// If the parsed expression is a CompoundExpression, then register some callbacks
-<<<<<<< HEAD
-=======
+
 					queryPane.getChildren().add(textField);					// If the parsed expression is a CompoundExpression, then register some callbacks
->>>>>>> 4ed28b21524959f47e6c96cd61dffd61d19da19e
+
 					if (expression instanceof CompoundExpression) {
 						((Pane) expression.getNode()).setBorder(Expression.NO_BORDER);
 						final MouseEventHandler eventHandler = new MouseEventHandler(expressionPane, (CompoundExpression) expression);
