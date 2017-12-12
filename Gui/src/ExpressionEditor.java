@@ -96,6 +96,10 @@ public class ExpressionEditor extends Application {
 					expression.getNode().setLayoutX(WINDOW_WIDTH/4);
 					expression.getNode().setLayoutY(WINDOW_HEIGHT/2);
 					// If the parsed expression is a CompoundExpression, then register some callbacks
+<<<<<<< HEAD
+=======
+					queryPane.getChildren().add(textField);					// If the parsed expression is a CompoundExpression, then register some callbacks
+>>>>>>> 4ed28b21524959f47e6c96cd61dffd61d19da19e
 					if (expression instanceof CompoundExpression) {
 						((Pane) expression.getNode()).setBorder(Expression.NO_BORDER);
 						final MouseEventHandler eventHandler = new MouseEventHandler(expressionPane, (CompoundExpression) expression);
