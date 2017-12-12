@@ -6,6 +6,7 @@ public class Terminal implements Expression {
 
 	private CompoundExpression parent;
 	private String value;
+	private Label label;
 	
 	/**
 	 * @param value String representing Terminal's value
@@ -24,7 +25,18 @@ public class Terminal implements Expression {
 	public CompoundExpression getParent() {
 		return this.parent;
 	}
-
+	
+	public Expression getMostSpecificFocus(double x, double y) {
+		if(this.contains(x, y)) {
+			return this;
+			
+		}
+		else
+			return null;
+	}
+	public boolean contains(double x, double y) {
+		return label.contains(x,y);
+	}
 	/**
 	 * @param parent
 	 * sets Terminal's parent to parent
@@ -77,7 +89,6 @@ public class Terminal implements Expression {
 		str += this.value;
 		return str;
 	}
-
 	@Override
 	public Node getNode() {
 		final Label node = new Label(value);

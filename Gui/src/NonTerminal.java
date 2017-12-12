@@ -2,12 +2,14 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javafx.scene.Node;
+import javafx.scene.layout.HBox;
 
 public class NonTerminal implements CompoundExpression {
 	
 	private CompoundExpression parent;
 	private LinkedList<Expression> children;
-	private Label label;
+	private HBox pane;
+	private int depth;
 	
 	/**
 	 * @return NonTerminal
@@ -16,7 +18,9 @@ public class NonTerminal implements CompoundExpression {
 	public NonTerminal() {
 		this.children = new LinkedList<Expression>();
 	}
-	
+	public boolean contains(double x, double y) {
+		return pane.contains(x, y);	
+		}
 	/**
 	 * @return CompoundExpression
 	 * returns the parent of the NonTerminal
@@ -146,9 +150,13 @@ public class NonTerminal implements CompoundExpression {
 		return this.children;
 	}
 	public Expression getMostSpecificFocus(double x, double y) {
-		if()
+		if(this.pane.contains(x, y)) {
+			return this;
+		}
+		else {
+			return null;
+			}
 	}
-
 	@Override
 	public Node getNode() {
 		// TODO Auto-generated method stub
