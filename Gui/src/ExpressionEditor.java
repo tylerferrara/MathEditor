@@ -25,15 +25,55 @@ public class ExpressionEditor extends Application {
 	/**
 	 * Mouse event handler for the entire pane that constitutes the ExpressionEditor
 	 */
-	private static class MouseEventHandler implements EventHandler<MouseEvent> {
+	/*private static class MouseEventHandler implements EventHandler<MouseEvent> {
 		MouseEventHandler (Pane pane_, CompoundExpression rootExpression_) {
 		}
 
 		public void handle (MouseEvent event) {
 			if (event.getEventType() == MouseEvent.MOUSE_PRESSED) {
-			} else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED) {
+				//SET FOCUS
+			}else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED) {
+				_label.setTranslateX(_label.getTranslateX() + (sceneX - _lastX));
+				_label.setTranslateY(_label.getTranslateY() + (sceneY - _lastY));
 			} else if (event.getEventType() == MouseEvent.MOUSE_RELEASED) {
+				_label.setLayoutX(_label.getLayoutX() + _label.getTranslateX());
+				_label.setLayoutY(_label.getLayoutY() + _label.getTranslateY());
+				_label.setTranslateX(0);
+				_label.setTranslateY(0);
 			}
+
+			_lastX = sceneX;
+			_lastY = sceneY;
+		}
+	}*/
+	private static class MouseEventHandler implements EventHandler<MouseEvent>{
+		MouseEventHandler (Pane pane, CompoundExpression rootExpression){
+		}
+		private Label _label;
+		double _lastX, _lastY;
+		MouseEventHandler(Label label){
+			_label=label;
+			
+		}
+		
+		public void handle(MouseEvent event) {
+			final double sceneX = event.getSceneX();
+			final double sceneY = event.getSceneY();
+			
+			if(event.getEventType()==MouseEvent.MOUSE_PRESSED) {
+				
+			}
+			else if (event.getEventType()==MouseEvent.MOUSE_DRAGGED) {
+				_label.setTranslateX(_label.getTranslateX()+(sceneX-_lastX));
+				_label.setTranslateY(_label.getTranslateY()+(sceneY-_lastY));
+				
+			}
+			else if(event.getEventType()==MouseEvent.MOUSE_RELEASED) {
+				_label.setLayoutX(_label.getLayoutX() + _label.getTranslateX());
+				_label.setLayoutY(_label.getLayoutY() + _label.getTranslateY());
+			}
+			_lastX= sceneX;
+			_lastY= sceneY;
 		}
 	}
 
@@ -76,8 +116,7 @@ public class ExpressionEditor extends Application {
 					expressionPane.getChildren().add(expression.getNode());
 					expression.getNode().setLayoutX(WINDOW_WIDTH/4);
 					expression.getNode().setLayoutY(WINDOW_HEIGHT/2);
-
-					// If the parsed expression is a CompoundExpression, then register some callbacks
+					queryPane.getChildren().add(textField);					// If the parsed expression is a CompoundExpression, then register some callbacks
 					if (expression instanceof CompoundExpression) {
 						((Pane) expression.getNode()).setBorder(Expression.NO_BORDER);
 						final MouseEventHandler eventHandler = new MouseEventHandler(expressionPane, (CompoundExpression) expression);
@@ -88,6 +127,13 @@ public class ExpressionEditor extends Application {
 				} catch (ExpressionParseException epe) {
 					// If we can't parse the expression, then mark it in red
 					textField.setStyle("-fx-text-fill: red");
+					queryPane.getChildren().add(new Label(textField.getText()));
+					queryPane.getChildren().add(new Label("TEST"));
+					HBox test = new HBox();
+					Label tester = new Label("test");
+					test.getChildren().add(tester);
+				
+					
 				}
 			}
 		});
@@ -102,5 +148,11 @@ public class ExpressionEditor extends Application {
 
 		primaryStage.setScene(new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT));
 		primaryStage.show();
+	}
+
+	@Override
+	public void handle(MouseEvent event) {
+		// TODO Auto-generated method stub
+		
 	}
 }
