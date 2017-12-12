@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import javafx.scene.Node;
+
 public class NonTerminal implements CompoundExpression {
 	
 	private CompoundExpression parent;
@@ -140,6 +142,12 @@ public class NonTerminal implements CompoundExpression {
 	 */
 	public LinkedList<Expression> getSubexpression() {
 		return this.children;
+	}
+
+	@Override
+	public Node getNode() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

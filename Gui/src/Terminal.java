@@ -1,3 +1,4 @@
+import javafx.scene.Node;
 
 public class Terminal implements Expression {
 
@@ -73,6 +74,12 @@ public class Terminal implements Expression {
 		}
 		str += this.value;
 		return str;
+	}
+
+	@Override
+	public Node getNode() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
