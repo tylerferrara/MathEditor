@@ -20,6 +20,9 @@ interface Expression {
 	 */
 	public static final Color GHOST_COLOR = Color.LIGHTGREY;
 
+	public boolean contains(double x, double y);
+	
+	public Expression getMostSpecificFocus(double x, double y);
 	/**
 	 * Returns the expression's parent.
 	 * @return the expression's parent
