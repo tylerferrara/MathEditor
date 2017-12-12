@@ -1,8 +1,21 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-
-import javafx.scene.Node;
+import javafx.application.Application;
+import java.util.*;
+import javafx.geometry.Point2D;
+import javafx.scene.control.Label;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.event.EventHandler;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 public class NonTerminal implements CompoundExpression {
 	
@@ -159,8 +172,14 @@ public class NonTerminal implements CompoundExpression {
 	}
 	@Override
 	public Node getNode() {
-		// TODO Auto-generated method stub
-		return null;
+		HBox hbox = new HBox();
+		for(int i = 0; i < this.children.size(); i++) {
+			hbox.getChildren().add(this.children.get(i).getNode());
+			if(i+1 != this.children.size()) {
+				hbox.getChildren().add(new Label(this.toString()));
+			}
+		}
+		return hbox;
 	}
 
 }

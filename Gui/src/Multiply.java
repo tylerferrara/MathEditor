@@ -8,9 +8,5 @@ public class Multiply extends NonTerminal {
 	public String toString() {
 		return "*";
 	}
-	@Override
-	public Node getNode() {
-		final Label node = new Label("*");
-		return node;
-	}
+
 }
