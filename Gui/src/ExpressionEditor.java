@@ -31,8 +31,11 @@ public class ExpressionEditor extends Application {
 
 		public void handle (MouseEvent event) {
 			if (event.getEventType() == MouseEvent.MOUSE_PRESSED) {
+				
 			} else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED) {
+				
 			} else if (event.getEventType() == MouseEvent.MOUSE_RELEASED) {
+				
 			}
 		}
 	}

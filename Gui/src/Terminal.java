@@ -1,3 +1,5 @@
+import java.util.*;
+import javafx.scene.control.Label;
 import javafx.scene.Node;
 
 public class Terminal implements Expression {
@@ -78,8 +80,8 @@ public class Terminal implements Expression {
 
 	@Override
 	public Node getNode() {
-		// TODO Auto-generated method stub
-		return null;
+		final Label node = new Label(value);
+		return node;
 	}
 
 }
