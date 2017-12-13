@@ -62,7 +62,7 @@ public class SimpleExpressionParser implements ExpressionParser {
 			String right = str.substring(plusIndex+1);
 			plus.addSubexpression(parseExpression(right));
 			// set current node as parent for subexpressions
-			for(Expression e: plus.getSubexpression()) {
+			for(Expression e: plus.getSubExpression()) {
 				e.setParent(plus);
 			}
 			return plus;
@@ -79,7 +79,7 @@ public class SimpleExpressionParser implements ExpressionParser {
 			String right = str.substring(timesIndex+1);
 			times.addSubexpression(parseExpression(right));
 			// set current node as parent for subexpressions
-			for(Expression e: times.getSubexpression()) {
+			for(Expression e: times.getSubExpression()) {
 				e.setParent(times);
 			}
 			return times;
@@ -90,7 +90,7 @@ public class SimpleExpressionParser implements ExpressionParser {
 			Parentheses paren = new Parentheses();
 			paren.addSubexpression(parseExpression(inside));
 			// set current node as parent for subexpressions
-			for(Expression e: paren.getSubexpression()) {
+			for(Expression e: paren.getSubExpression()) {
 				e.setParent(paren);
 			}
 			return paren;

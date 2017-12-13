@@ -26,6 +26,12 @@ public class Terminal implements Expression {
 		return this.parent;
 	}
 	
+	public LinkedList<Expression> getSubExpression(){
+		return null;
+	}
+	public String getValue() {
+		return this.value;
+	}
 	public Expression getMostSpecificFocus(double x, double y) {
 		if(this.contains(x, y)) {
 			return this;
@@ -93,6 +99,11 @@ public class Terminal implements Expression {
 	public Node getNode() {
 		final Label node = new Label(value);
 		return node;
+	}
+
+	@Override
+	public String getString() {
+		return this.value;
 	}
 
 }

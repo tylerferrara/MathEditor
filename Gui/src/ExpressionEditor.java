@@ -27,12 +27,14 @@ public class ExpressionEditor extends Application {
 	 */
 	private static class MouseEventHandler implements EventHandler<MouseEvent>{
 		MouseEventHandler (Pane pane, CompoundExpression rootExpression){
+		root=rootExpression;
+		System.out.println(rootExpression);
+		this._Label=new Label(rootExpression.getString());
 		}
-		private Label _label;
+		private CompoundExpression root;
+		private Label _Label;
 		double _lastX, _lastY;
-		MouseEventHandler(Label label){
-			_label=label;}
-			
+				
 			public void handle(MouseEvent event) {
 				Expression selected = null;
 				final double sceneX = event.getSceneX();
@@ -41,11 +43,11 @@ public class ExpressionEditor extends Application {
 				if(event.getEventType()==MouseEvent.MOUSE_PRESSED) {
 					if(selected==null)
 					{
-						selected=currentExpression.getMostSpecificFocus(event.getSceneX(),event.getSceneY())
+						selected=root.getMostSpecificFocus(event.getSceneX(),event.getSceneY())
 								.getMostSpecificFocus(event.getSceneX(),event.getSceneY());
 					}
-					else {
-						for(Expression child: selected.getChildren())
+					else{
+						for(Expression child: selected.getSubExpression())
 						{
 							 Expression temp =child.getMostSpecificFocus(event.getSceneX(),event.getSceneY());
 							 if(temp!=null) {
@@ -93,7 +95,6 @@ public class ExpressionEditor extends Application {
 		final TextField textField = new TextField(EXAMPLE_EXPRESSION);
 		final Button button = new Button("Parse");
 		queryPane.getChildren().add(textField);
-
 		final Pane expressionPane = new Pane();
 
 		// Add the callback to handle when the Parse button is pressed	
@@ -103,14 +104,13 @@ public class ExpressionEditor extends Application {
 				try {
 					// Success! Add the expression's Node to the expressionPane
 					final Expression expression = expressionParser.parse(textField.getText(), true);
-					System.out.println(expression.convertToString(0));
 					expressionPane.getChildren().clear();
 					expressionPane.getChildren().add(expression.getNode());
 					expression.getNode().setLayoutX(WINDOW_WIDTH/4);
 					expression.getNode().setLayoutY(WINDOW_HEIGHT/2);
 					// If the parsed expression is a CompoundExpression, then register some callbacks
 
-					queryPane.getChildren().add(textField);					// If the parsed expression is a CompoundExpression, then register some callbacks
+					//queryPane.getChildren().add(textField);					// If the parsed expression is a CompoundExpression, then register some callbacks
 
 					if (expression instanceof CompoundExpression) {
 						((Pane) expression.getNode()).setBorder(Expression.NO_BORDER);

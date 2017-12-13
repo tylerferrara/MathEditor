@@ -30,6 +30,7 @@ public class NonTerminal implements CompoundExpression {
 	 */
 	public NonTerminal() {
 		this.children = new LinkedList<Expression>();
+		pane = new HBox();
 	}
 	public boolean contains(double x, double y) {
 		return pane.contains(x, y);	
@@ -69,7 +70,7 @@ public class NonTerminal implements CompoundExpression {
 		
 		for(int i = 0; i < this.children.size(); i++) {
 			copy.addSubexpression((Expression) this.children.get(i).deepCopy());
-			copy.getSubexpression().get(i).setParent(copy);
+			copy.getSubExpression().get(i).setParent(copy);
 		}
 		return copy;
 	}
@@ -88,7 +89,7 @@ public class NonTerminal implements CompoundExpression {
 			if(this.toString().equals(child.toString())) {
 				// TIME TO OPTIMIZE
 				// set child's children to have this object as the parent
-				LinkedList<Expression> childChildren = ((NonTerminal) child).getSubexpression();
+				LinkedList<Expression> childChildren = ((NonTerminal) child).getSubExpression();
 				for(int k = childChildren.size()-1; k >= 0; k--) {
 					childChildren.get(k).setParent(this);
 					// add child's children to this.children
@@ -159,7 +160,7 @@ public class NonTerminal implements CompoundExpression {
 	/**
 	 * @return the NonTerminal's children
 	 */
-	public LinkedList<Expression> getSubexpression() {
+	public LinkedList<Expression> getSubExpression() {
 		return this.children;
 	}
 	public Expression getMostSpecificFocus(double x, double y) {
@@ -180,6 +181,15 @@ public class NonTerminal implements CompoundExpression {
 			}
 		}
 		return hbox;
+	}
+	@Override
+	public String getString() {
+		String str = "";
+		for(Expression child : children)
+		{
+			str+= child.getString();
+		}
+		return str;
 	}
 
 }

@@ -1,5 +1,8 @@
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+
+import java.util.LinkedList;
+
 import javafx.scene.Node;
 
 interface Expression {
@@ -80,4 +83,6 @@ interface Expression {
 			sb.append('\t');
 		}
 	}
-}
+	public String getString();
+	LinkedList<Expression> getSubExpression();
+	}
