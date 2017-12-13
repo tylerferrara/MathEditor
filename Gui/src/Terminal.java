@@ -35,13 +35,13 @@ public class Terminal implements Expression {
 	public Expression getMostSpecificFocus(double x, double y) {
 		if(this.contains(x, y)) {
 			return this;
-			
 		}
 		else
 			return null;
 	}
 	public boolean contains(double x, double y) {
-		return label.contains(label.sceneToLocal(x, y));
+		label.localToScene(label.getBoundsInLocal());
+		return label.contains(x, y);
 	}
 	/**
 	 * @param parent

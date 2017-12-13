@@ -38,6 +38,15 @@ public class NonTerminal implements CompoundExpression {
 		pane.localToScene(pane.getBoundsInLocal());
 		return pane.contains(x, y);
 	}
+	@Override
+	public Expression getMostSpecificFocus(double x, double y) {
+		for(Expression child : children) {
+			if(child.contains(x, y)){
+				return child;
+			}
+		}
+		return null;
+	}
 	/**
 	 * @return CompoundExpression
 	 * returns the parent of the NonTerminal
@@ -166,14 +175,6 @@ public class NonTerminal implements CompoundExpression {
 	public LinkedList<Expression> getSubExpression() {
 		return this.children;
 	}
-	public Expression getMostSpecificFocus(double x, double y) {
-		if(this.pane.contains(x, y)) {
-			return this;
-		}
-		else {
-			return null;
-			}
-	}
 	@Override
 	public Node getNode() {
 		HBox hbox = new HBox();
@@ -194,15 +195,5 @@ public class NonTerminal implements CompoundExpression {
 		}
 		return str;
 	}
-	@Override
-	public Expression getMostSpecificFocus(Bounds bound) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public HBox getHBox() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 }

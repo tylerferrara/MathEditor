@@ -52,7 +52,7 @@ public class ExpressionEditor extends Application {
 				if(event.getEventType()==MouseEvent.MOUSE_PRESSED) {
 					if(selected==null)
 					{
-						selected=root.getMostSpecificFocus(event.getSceneX(),event.getSceneY());
+						selected=root.getMostSpecificFocus(event.getSceneX(),event.getSceneY());  
 						System.out.println(root);
 						createBorder(selected);
 					}
