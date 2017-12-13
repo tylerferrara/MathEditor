@@ -1,5 +1,10 @@
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+
 import java.util.*;
+
+import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
@@ -15,7 +20,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.scene.shape.Rectangle;
 
 public class ExpressionEditor extends Application {
 	public static void main (String[] args) {
@@ -26,13 +33,14 @@ public class ExpressionEditor extends Application {
 	 * Mouse event handler for the entire pane that constitutes the ExpressionEditor
 	 */
 	private static class MouseEventHandler implements EventHandler<MouseEvent>{
+		private static final String Rectangle = null;
+
 		MouseEventHandler (Pane pane, CompoundExpression rootExpression){
 		root=rootExpression;
-		System.out.println(rootExpression);
-		this._Label=new Label(rootExpression.getString());
+		this._label=new Label(rootExpression.getString());
 		}
 		private CompoundExpression root;
-		private Label _Label;
+		private Label _label;
 		double _lastX, _lastY;
 				
 			public void handle(MouseEvent event) {
@@ -43,8 +51,9 @@ public class ExpressionEditor extends Application {
 				if(event.getEventType()==MouseEvent.MOUSE_PRESSED) {
 					if(selected==null)
 					{
-						selected=root.getMostSpecificFocus(event.getSceneX(),event.getSceneY())
-								.getMostSpecificFocus(event.getSceneX(),event.getSceneY());
+						selected=root.getMostSpecificFocus(event.getSceneX(),event.getSceneY());
+								//.getMostSpecificFocus(event.getSceneX(),event.getSceneY());
+						createBorder(selected);
 					}
 					else{
 						for(Expression child: selected.getSubExpression())
@@ -57,6 +66,7 @@ public class ExpressionEditor extends Application {
 						}
 						selected=null;
 					}
+					createBorder(selected);
 				}
 				else if (event.getEventType()==MouseEvent.MOUSE_DRAGGED) {
 					_label.setTranslateX(_label.getTranslateX()+(sceneX-_lastX));
@@ -69,6 +79,23 @@ public class ExpressionEditor extends Application {
 				}
 				_lastX= sceneX;
 				_lastY= sceneY;
+			}
+			
+			public void createBorder(Expression e) {
+				final Rectangle border = new Rectangle(0, 0, Color.TRANSPARENT);
+				border.setStroke(Color.RED);
+				border.setManaged(false);
+				if(e != null) {
+					e.getNode().boundsInParentProperty().addListener(new ChangeListener<Bounds>() {
+						@Override
+		            		public void changed(ObservableValue<? extends Bounds> observable, Bounds oldValue, Bounds newValue) {
+		                		border.setLayoutX(e.getNode().getBoundsInParent().getMinX());
+		                		border.setLayoutY(e.getNode().getBoundsInParent().getMinY());
+		                		border.setWidth(e.getNode().getBoundsInParent().getWidth());
+		                		border.setHeight(root.getNode().getBoundsInParent().getHeight());
+		            		}
+					});
+				}
 			}
 		}
 	/**
