@@ -197,7 +197,11 @@ public class NonTerminal implements CompoundExpression {
 	public Node getNode() {
 		HBox hbox = new HBox();
 		for(int i = 0; i < this.children.size(); i++) {
-			hbox.getChildren().add(new Label(this.children.get(i).getString()));
+			if(this.children.get(i) instanceof NonTerminal) {
+				hbox.getChildren().add(this.children.get(i).getNode());
+			} else {
+				hbox.getChildren().add(new Label(this.children.get(i).getString()));
+			}
 			if(i+1 != this.children.size()) {
 				hbox.getChildren().add(new Label(this.toString()));
 			}

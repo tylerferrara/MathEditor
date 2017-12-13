@@ -50,6 +50,7 @@ public class ExpressionEditor extends Application {
 				final double sceneY = event.getSceneY();
 				
 				if(event.getEventType()==MouseEvent.MOUSE_PRESSED) {
+					
 					if(selected==null)
 					{
 						selected=root.getMostSpecificFocus(event.getSceneX(),event.getSceneY());  
