@@ -1,4 +1,7 @@
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+
 import java.util.*;
 
 import javafx.geometry.Bounds;
@@ -18,7 +21,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.scene.shape.Rectangle;
+
 
 public class NonTerminal implements CompoundExpression {
 	
@@ -187,18 +193,32 @@ public class NonTerminal implements CompoundExpression {
 	public LinkedList<Expression> getSubExpression() {
 		return this.children;
 	}
-	@Override
+
 	public Node getNode() {
 		HBox hbox = new HBox();
 		for(int i = 0; i < this.children.size(); i++) {
-			System.out.println("hi");
-			hbox.getChildren().add(this.children.get(i).getNode());
+			hbox.getChildren().add(new Label(this.children.get(i).getString()));
 			if(i+1 != this.children.size()) {
-				hbox.getChildren().add(this.pane);
-			}		
+				hbox.getChildren().add(new Label(this.toString()));
+			}
 		}
+
 		return hbox;
 	}
+	
+	
+//	@Override
+//	public Node getNode() {
+//		HBox hbox = new HBox();
+//		if(this.children.size() > 0) {
+//			for(int i = 1; i < this.children.size(); i++) {
+//				hbox.getChildren().add(this.pane);
+//				hbox.getChildren().add(this.children.get(i).getNode());
+//			}
+//		}
+//		return hbox;
+//	}
+	
 	@Override
 	public String getString() {
 		String str = "";
@@ -208,6 +228,8 @@ public class NonTerminal implements CompoundExpression {
 		}
 		return str;
 	}
+	
+	@Override
 	public void setBorder(Border border) {
 		this.border = border;
 	}

@@ -8,8 +8,7 @@ public class Terminal implements Expression {
 
 	private CompoundExpression parent;
 	private String value;
-	private Label label;
-	private HBox pane;
+	private Label pane;
 	private int depth;
 	private Border border;
 	
@@ -21,8 +20,9 @@ public class Terminal implements Expression {
 	public Terminal(String value) {
 		this.value = value;
 		Label label = new Label(value);
-		pane = new HBox();
-		pane.getChildren().add(label);
+//		pane = new HBox();
+		pane = label;
+//		pane.getChildren().add(label);
 		this.border = NO_BORDER;
 	}
 	
@@ -49,8 +49,8 @@ public class Terminal implements Expression {
 			return null;
 	}
 	public boolean contains(double x, double y) {
-		label.localToScene(label.getBoundsInLocal());
-		return label.contains(x, y);
+		pane.localToScene(pane.getBoundsInLocal());
+		return pane.contains(x, y);
 	}
 	/**
 	 * @param parent
@@ -108,7 +108,6 @@ public class Terminal implements Expression {
 	public Node getNode() {
 //		final Label node = new Label(value);
 //		return node;
-		System.out.println("Terminal");
 		return this.pane;
 	}
 
