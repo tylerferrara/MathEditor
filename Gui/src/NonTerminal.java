@@ -23,9 +23,10 @@ import javafx.stage.Stage;
 public class NonTerminal implements CompoundExpression {
 	
 	private CompoundExpression parent;
-	private LinkedList<Expression> children;
-	private HBox pane;
+	protected LinkedList<Expression> children;
+	protected HBox pane;
 	private int depth;
+	protected ArrayList<HBox> selectOptions;
 	private Border border;
 	
 	/**
@@ -33,17 +34,21 @@ public class NonTerminal implements CompoundExpression {
 	 * public constructor for NonTerminal
 	 */
 	public NonTerminal() {
+		selectOptions = new ArrayList<HBox>();
 		this.children = new LinkedList<Expression>();
 		pane = new HBox();
 		this.border = NO_BORDER;
 	}
+	
 	public boolean contains(double x, double y) {
 		pane.localToScene(pane.getBoundsInLocal());
 		return pane.contains(x, y);
 	}
+	
 	@Override
 	public Expression getMostSpecificFocus(double x, double y) {
-		for(Expression child : children) {
+		for(int i = 0; i < this.children.size(); i++) {
+			Expression child = this.children.get(i);
 			if(child.contains(x, y)){
 				return child;
 			}
@@ -161,6 +166,7 @@ public class NonTerminal implements CompoundExpression {
 	 */
 	@Override
 	public void addSubexpression(Expression subexpression) {
+//		pane.getChildren().add(subexpression.getHbox());
 		this.children.add(subexpression);
 	}
 	
@@ -169,6 +175,9 @@ public class NonTerminal implements CompoundExpression {
 	 * sets the NonTerminal's children to subExpressionList
 	 */
 	public void setSubExpression(LinkedList<Expression> subExpressionList) {
+		for(int i = 0; i < subExpressionList.size(); i++) {
+//			pane.getChildren().add(subExpressionList.get(i).getHbox());
+		}
 		this.children = subExpressionList;
 	}
 	
@@ -182,10 +191,11 @@ public class NonTerminal implements CompoundExpression {
 	public Node getNode() {
 		HBox hbox = new HBox();
 		for(int i = 0; i < this.children.size(); i++) {
+			System.out.println("hi");
 			hbox.getChildren().add(this.children.get(i).getNode());
 			if(i+1 != this.children.size()) {
-				hbox.getChildren().add(new Label(this.toString()));
-			}
+				hbox.getChildren().add(this.pane);
+			}		
 		}
 		return hbox;
 	}
