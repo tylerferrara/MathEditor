@@ -5,7 +5,7 @@ import javafx.scene.Node;
 
 public class Add extends NonTerminal {
 	public Add() {
-		
+		super.pane.getChildren().add(new Label("+"));
 	}
 	
 	public String toString() {
