@@ -206,7 +206,6 @@ public class NonTerminal implements CompoundExpression {
 				hbox.getChildren().add(new Label(this.toString()));
 			}
 		}
-
 		return hbox;
 	}
 	
