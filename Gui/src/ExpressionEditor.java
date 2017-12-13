@@ -53,21 +53,24 @@ public class ExpressionEditor extends Application {
 					if(selected==null)
 					{
 						selected=root.getMostSpecificFocus(event.getSceneX(),event.getSceneY());  
+						if(selected != null) {
+							selected.setBorder(Expression.RED_BORDER);
+						}
 						System.out.println(root);
-						createBorder(selected);
 					}
 					else{
+						selected.setBorder(Expression.NO_BORDER);
 						for(Expression child: selected.getSubExpression())
 						{
 							 Expression temp =child.getMostSpecificFocus(event.getSceneX(),event.getSceneY());
 							 if(temp!=null) {
 								 selected= temp;
+								 selected.setBorder(Expression.RED_BORDER);
 							 }
 
 						}
 						selected=null;
 					}
-					createBorder(selected);
 				}
 				else if (event.getEventType()==MouseEvent.MOUSE_DRAGGED) {
 					_label.setTranslateX(_label.getTranslateX()+(sceneX-_lastX));
@@ -82,22 +85,6 @@ public class ExpressionEditor extends Application {
 				_lastY= sceneY;
 			}
 			
-			public void createBorder(Expression e) {
-				final Rectangle border = new Rectangle(0, 0, Color.TRANSPARENT);
-				border.setStroke(Color.RED);
-				border.setManaged(false);
-				if(e != null) {
-					e.getNode().boundsInParentProperty().addListener(new ChangeListener<Bounds>() {
-						@Override
-		            		public void changed(ObservableValue<? extends Bounds> observable, Bounds oldValue, Bounds newValue) {
-		                		border.setLayoutX(e.getNode().getBoundsInParent().getMinX());
-		                		border.setLayoutY(e.getNode().getBoundsInParent().getMinY());
-		                		border.setWidth(e.getNode().getBoundsInParent().getWidth());
-		                		border.setHeight(root.getNode().getBoundsInParent().getHeight());
-		            		}
-					});
-				}
-			}
 		}
 	/**
 	 * Size of the GUI

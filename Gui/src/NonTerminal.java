@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.Node;
@@ -25,6 +26,7 @@ public class NonTerminal implements CompoundExpression {
 	private LinkedList<Expression> children;
 	private HBox pane;
 	private int depth;
+	private Border border;
 	
 	/**
 	 * @return NonTerminal
@@ -33,6 +35,7 @@ public class NonTerminal implements CompoundExpression {
 	public NonTerminal() {
 		this.children = new LinkedList<Expression>();
 		pane = new HBox();
+		this.border = NO_BORDER;
 	}
 	public boolean contains(double x, double y) {
 		pane.localToScene(pane.getBoundsInLocal());
@@ -194,6 +197,9 @@ public class NonTerminal implements CompoundExpression {
 			str+= child.getString();
 		}
 		return str;
+	}
+	public void setBorder(Border border) {
+		this.border = border;
 	}
 	
 }

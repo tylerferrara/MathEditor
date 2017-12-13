@@ -1,7 +1,9 @@
+/.DS_Store
 /Add.class
 /CompoundExpression.class
 /Expression.class
 /ExpressionEditor$1.class
+/ExpressionEditor$MouseEventHandler$1.class
 /ExpressionEditor$MouseEventHandler.class
 /ExpressionEditor.class
 /ExpressionParseException.class
@@ -12,4 +14,3 @@
 /Parentheses.class
 /SimpleExpressionParser.class
 /Terminal.class
-/ExpressionEditor$MouseEventHandler$1.class
