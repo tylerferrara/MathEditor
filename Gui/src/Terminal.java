@@ -1,5 +1,6 @@
 import java.util.*;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Border;
 import javafx.scene.Node;
 
@@ -8,6 +9,8 @@ public class Terminal implements Expression {
 	private CompoundExpression parent;
 	private String value;
 	private Label label;
+	private HBox pane;
+	private int depth;
 	private Border border;
 	
 	/**
@@ -17,6 +20,9 @@ public class Terminal implements Expression {
 	 */
 	public Terminal(String value) {
 		this.value = value;
+		Label label = new Label(value);
+		pane = new HBox();
+		pane.getChildren().add(label);
 		this.border = NO_BORDER;
 	}
 	
@@ -100,14 +106,17 @@ public class Terminal implements Expression {
 	}
 	@Override
 	public Node getNode() {
-		final Label node = new Label(value);
-		return node;
+//		final Label node = new Label(value);
+//		return node;
+		System.out.println("Terminal");
+		return this.pane;
 	}
 
 	@Override
 	public String getString() {
 		return this.value;
 	}
+
 	public void setBorder(Border border) {
 		this.border = border;
 	}
