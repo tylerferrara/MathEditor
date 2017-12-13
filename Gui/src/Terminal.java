@@ -41,7 +41,7 @@ public class Terminal implements Expression {
 			return null;
 	}
 	public boolean contains(double x, double y) {
-		return label.contains(x,y);
+		return label.contains(label.sceneToLocal(x, y));
 	}
 	/**
 	 * @param parent

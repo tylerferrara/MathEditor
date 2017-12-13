@@ -45,6 +45,7 @@ public class ExpressionEditor extends Application {
 				
 			public void handle(MouseEvent event) {
 				Expression selected = null;
+				//final Bounds bound = 
 				final double sceneX = event.getSceneX();
 				final double sceneY = event.getSceneY();
 				
@@ -52,7 +53,7 @@ public class ExpressionEditor extends Application {
 					if(selected==null)
 					{
 						selected=root.getMostSpecificFocus(event.getSceneX(),event.getSceneY());
-								//.getMostSpecificFocus(event.getSceneX(),event.getSceneY());
+						System.out.println(root);
 						createBorder(selected);
 					}
 					else{

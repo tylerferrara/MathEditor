@@ -1,5 +1,7 @@
 import javafx.application.Application;
 import java.util.*;
+
+import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
@@ -33,8 +35,9 @@ public class NonTerminal implements CompoundExpression {
 		pane = new HBox();
 	}
 	public boolean contains(double x, double y) {
-		return pane.contains(x, y);	
-		}
+		pane.localToScene(pane.getBoundsInLocal());
+		return pane.contains(x, y);
+	}
 	/**
 	 * @return CompoundExpression
 	 * returns the parent of the NonTerminal
@@ -190,6 +193,16 @@ public class NonTerminal implements CompoundExpression {
 			str+= child.getString();
 		}
 		return str;
+	}
+	@Override
+	public Expression getMostSpecificFocus(Bounds bound) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public HBox getHBox() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
