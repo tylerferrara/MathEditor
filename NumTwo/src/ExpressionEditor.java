@@ -82,9 +82,9 @@ public class ExpressionEditor extends Application {
 							focus.setStyle("");
 							focus = newFocus;
 							focusDepth = focusDepth+1;
-							focus.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
-							        + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
-							        + "-fx-border-radius: 5;" + "-fx-border-color: blue;");
+							focus.setStyle("-fx-padding: 0;" + "-fx-border-style: solid inside;"
+							        + "-fx-border-width: 1;" + "-fx-border-insets: 0;"
+							        + "-fx-border-radius: 0;" + "-fx-border-color: red;");
 						} else {
 							focus.setStyle("");
 							focusDepth = -1;
@@ -103,9 +103,22 @@ public class ExpressionEditor extends Application {
 					if(contains(screen,event.getSceneX(),event.getSceneY())) {
 						focusDepth = focusDepth+1;
 						focus = screen;
-						focus.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
-						        + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
-						        + "-fx-border-radius: 5;" + "-fx-border-color: blue;");
+						Node newFocus = null;
+						HBox myFocus = (HBox) focus;
+						for(int i = 0; i < myFocus.getChildren().size(); i++) {
+							if(contains(myFocus.getChildren().get(i), event.getSceneX(), event.getSceneY())) {
+								newFocus = myFocus.getChildren().get(i);
+							}
+						}
+						if( newFocus != null) {
+							// HERE IS OUR NEW FOCUS!!
+							focus.setStyle("");
+							focus = newFocus;
+							focusDepth = focusDepth+1;
+							focus.setStyle("-fx-padding: 0;" + "-fx-border-style: solid inside;"
+							        + "-fx-border-width: 1;" + "-fx-border-insets: 0;"
+							        + "-fx-border-radius: 0;" + "-fx-border-color: red;");
+						}
 					}
 				}
 				
@@ -127,8 +140,7 @@ public class ExpressionEditor extends Application {
 	 * Parser used for parsing expressions.
 	 */
 	private final ExpressionParser expressionParser = new SimpleExpressionParser();
-
-	@Override
+	
 	public void start (Stage primaryStage) {
 		primaryStage.setTitle("Expression Editor");
 
