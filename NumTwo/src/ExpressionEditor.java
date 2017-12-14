@@ -49,6 +49,29 @@ public class ExpressionEditor extends Application {
 		}
 		
 
+		public void focusHelper (Node focus, MouseEvent event) {
+			Node newFocus = null;
+			HBox myFocus = (HBox) focus;
+			for(int i = 0; i < myFocus.getChildren().size(); i++) {
+				if(contains(myFocus.getChildren().get(i), event.getSceneX(), event.getSceneY())) {
+					newFocus = myFocus.getChildren().get(i);
+				}
+			}
+			if( newFocus != null) {
+				// HERE IS OUR NEW FOCUS!!
+				focus.setStyle("");
+				focus = newFocus;
+				focusDepth = focusDepth+1;
+				focus.setStyle("-fx-padding: 0;" + "-fx-border-style: solid inside;"
+				        + "-fx-border-width: 1;" + "-fx-border-insets: 0;"
+				        + "-fx-border-radius: 0;" + "-fx-border-color: red;");
+			} else {
+				focus.setStyle("");
+				focusDepth = -1;
+				focus = null;
+			}
+		}
+		
 		public void handle (MouseEvent event) {
 			HBox screen = (HBox) pane.getChildren().get(0);
 			if (event.getEventType() == MouseEvent.MOUSE_PRESSED) {
@@ -70,26 +93,7 @@ public class ExpressionEditor extends Application {
 
 					
 					if(focus instanceof HBox) {
-						Node newFocus = null;
-						HBox myFocus = (HBox) focus;
-						for(int i = 0; i < myFocus.getChildren().size(); i++) {
-							if(contains(myFocus.getChildren().get(i), event.getSceneX(), event.getSceneY())) {
-								newFocus = myFocus.getChildren().get(i);
-							}
-						}
-						if( newFocus != null) {
-							// HERE IS OUR NEW FOCUS!!
-							focus.setStyle("");
-							focus = newFocus;
-							focusDepth = focusDepth+1;
-							focus.setStyle("-fx-padding: 0;" + "-fx-border-style: solid inside;"
-							        + "-fx-border-width: 1;" + "-fx-border-insets: 0;"
-							        + "-fx-border-radius: 0;" + "-fx-border-color: red;");
-						} else {
-							focus.setStyle("");
-							focusDepth = -1;
-							focus = null;
-						}
+						focusHelper(focus, event);
 					} else {
 						// WE HAVE A TERMINAL NODE
 						focus.setStyle("");
@@ -103,22 +107,7 @@ public class ExpressionEditor extends Application {
 					if(contains(screen,event.getSceneX(),event.getSceneY())) {
 						focusDepth = focusDepth+1;
 						focus = screen;
-						Node newFocus = null;
-						HBox myFocus = (HBox) focus;
-						for(int i = 0; i < myFocus.getChildren().size(); i++) {
-							if(contains(myFocus.getChildren().get(i), event.getSceneX(), event.getSceneY())) {
-								newFocus = myFocus.getChildren().get(i);
-							}
-						}
-						if( newFocus != null) {
-							// HERE IS OUR NEW FOCUS!!
-							focus.setStyle("");
-							focus = newFocus;
-							focusDepth = focusDepth+1;
-							focus.setStyle("-fx-padding: 0;" + "-fx-border-style: solid inside;"
-							        + "-fx-border-width: 1;" + "-fx-border-insets: 0;"
-							        + "-fx-border-radius: 0;" + "-fx-border-color: red;");
-						}
+						focusHelper(focus, event);
 					}
 				}
 				
