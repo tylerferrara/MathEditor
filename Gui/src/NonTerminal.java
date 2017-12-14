@@ -33,7 +33,6 @@ public class NonTerminal implements CompoundExpression {
 	protected HBox pane;
 	private int depth;
 	protected ArrayList<HBox> selectOptions;
-	private Border border;
 	
 	/**
 	 * @return NonTerminal
@@ -43,7 +42,6 @@ public class NonTerminal implements CompoundExpression {
 		selectOptions = new ArrayList<HBox>();
 		this.children = new LinkedList<Expression>();
 		pane = new HBox();
-		this.border = NO_BORDER;
 	}
 	
 	public boolean contains(double x, double y) {
@@ -230,11 +228,6 @@ public class NonTerminal implements CompoundExpression {
 			str+= child.getString();
 		}
 		return str;
-	}
-	
-	@Override
-	public void setBorder(Border border) {
-		this.border = border;
 	}
 	
 }

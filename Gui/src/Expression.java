@@ -86,5 +86,4 @@ interface Expression {
 	}
 	public String getString();
 	LinkedList<Expression> getSubExpression();
-	void setBorder(Border border);
 	}

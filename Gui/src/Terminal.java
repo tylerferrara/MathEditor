@@ -10,7 +10,6 @@ public class Terminal implements Expression {
 	private String value;
 	private Label pane;
 	private int depth;
-	private Border border;
 	
 	/**
 	 * @param value String representing Terminal's value
@@ -23,7 +22,6 @@ public class Terminal implements Expression {
 //		pane = new HBox();
 		pane = label;
 //		pane.getChildren().add(label);
-		this.border = NO_BORDER;
 	}
 	
 	/**
@@ -114,10 +112,6 @@ public class Terminal implements Expression {
 	@Override
 	public String getString() {
 		return this.value;
-	}
-
-	public void setBorder(Border border) {
-		this.border = border;
 	}
 
 }

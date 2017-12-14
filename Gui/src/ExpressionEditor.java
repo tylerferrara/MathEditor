@@ -12,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.Node;
@@ -42,6 +43,14 @@ public class ExpressionEditor extends Application {
 		private CompoundExpression root;
 		private Label _label;
 		double _lastX, _lastY;
+		
+			public void setBorder(Expression e, Border b) {
+				if(e instanceof NonTerminal) {
+					((Pane) e.getNode()).setBorder(b);
+				} else if(e instanceof Terminal) {
+					((Label) e.getNode()).setBorder(b);
+				}
+			}
 				
 			public void handle(MouseEvent event) {
 				Expression selected = null;
@@ -54,19 +63,17 @@ public class ExpressionEditor extends Application {
 					if(selected==null)
 					{
 						selected=root.getMostSpecificFocus(event.getSceneX(),event.getSceneY());  
-						if(selected != null) {
-							selected.setBorder(Expression.RED_BORDER);
-						}
+						setBorder(selected, Expression.RED_BORDER);
 						System.out.println(root);
 					}
 					else{
-						selected.setBorder(Expression.NO_BORDER);
+						setBorder(selected, Expression.NO_BORDER);
 						for(Expression child: selected.getSubExpression())
 						{
 							 Expression temp =child.getMostSpecificFocus(event.getSceneX(),event.getSceneY());
 							 if(temp!=null) {
 								 selected= temp;
-								 selected.setBorder(Expression.RED_BORDER);
+								 setBorder(selected, Expression.RED_BORDER);
 							 }
 
 						}
@@ -129,7 +136,7 @@ public class ExpressionEditor extends Application {
 					//queryPane.getChildren().add(textField);					// If the parsed expression is a CompoundExpression, then register some callbacks
 
 					if (expression instanceof CompoundExpression) {
-						((Pane) expression.getNode()).setBorder(Expression.NO_BORDER);
+						((Pane) expression.getNode()).setBorder(Expression.RED_BORDER);
 						final MouseEventHandler eventHandler = new MouseEventHandler(expressionPane, (CompoundExpression) expression);
 						expressionPane.setOnMousePressed(eventHandler);
 						expressionPane.setOnMouseDragged(eventHandler);
