@@ -30,11 +30,13 @@ public class ExpressionEditor extends Application {
 	private static class MouseEventHandler implements EventHandler<MouseEvent> {
 		private Pane pane;
 		private CompoundExpression rootExpression;
-		private HBox focus;
+		private Node focus;
+		int focusDepth;
 		MouseEventHandler (Pane pane_, CompoundExpression rootExpression_) {
 			pane = pane_;
 			rootExpression = rootExpression_;
 			focus = null;
+			focusDepth = -1;
 		}
 		
 		public boolean contains(Node n, Double x, Double y) {
@@ -49,44 +51,64 @@ public class ExpressionEditor extends Application {
 
 		public void handle (MouseEvent event) {
 			HBox screen = (HBox) pane.getChildren().get(0);
-			HBox mystery = (HBox) screen.getChildren().get(0);
 			if (event.getEventType() == MouseEvent.MOUSE_PRESSED) {
+				
+
+				
+			} else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED) {
+				
+				focus.setTranslateX(event.getSceneX());
+				focus.setTranslateY(event.getSceneY());
+				
+				HBox parent = (HBox)focus.getParent();
+
+				
+			} else if (event.getEventType() == MouseEvent.MOUSE_RELEASED) {
 				
 				if(focus != null) {
 					
 
-					HBox newFocus = null;
-					for(int i = 0; i < focus.getChildren().size(); i++) {
-						if(contains(focus.getChildren().get(i), event.getSceneX(), event.getSceneY())) {
-							newFocus = (HBox)focus.getChildren().get(i);
+					
+					if(focus instanceof HBox) {
+						Node newFocus = null;
+						HBox myFocus = (HBox) focus;
+						for(int i = 0; i < myFocus.getChildren().size(); i++) {
+							if(contains(myFocus.getChildren().get(i), event.getSceneX(), event.getSceneY())) {
+								newFocus = myFocus.getChildren().get(i);
+							}
 						}
-					}
-					if( newFocus != null) {
-						// HERE IS OUR NEW FOCUS!!
-						focus.setStyle("");
-						focus = newFocus;
-						focus.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
-						        + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
-						        + "-fx-border-radius: 5;" + "-fx-border-color: blue;");
+						if( newFocus != null) {
+							// HERE IS OUR NEW FOCUS!!
+							focus.setStyle("");
+							focus = newFocus;
+							focusDepth = focusDepth+1;
+							focus.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
+							        + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
+							        + "-fx-border-radius: 5;" + "-fx-border-color: blue;");
+						} else {
+							focus.setStyle("");
+							focusDepth = -1;
+							focus = null;
+						}
 					} else {
+						// WE HAVE A TERMINAL NODE
 						focus.setStyle("");
+						focusDepth = -1;
 						focus = null;
 					}
+					
 					
 				} else {
 					// Find a new focus!
 					if(contains(screen,event.getSceneX(),event.getSceneY())) {
-						System.out.println("YOU FOUND ME!!!!!!!!!!!!!!!!!!!!!!!!!");
+						focusDepth = focusDepth+1;
 						focus = screen;
 						focus.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
 						        + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
 						        + "-fx-border-radius: 5;" + "-fx-border-color: blue;");
 					}
 				}
-				System.out.println(focus);
 				
-			} else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED) {
-			} else if (event.getEventType() == MouseEvent.MOUSE_RELEASED) {
 			}
 		}
 	}
